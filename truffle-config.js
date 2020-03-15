@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   networks: {
     development: {
@@ -5,18 +7,19 @@ module.exports = {
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
-
   },
 
   mocha: {},
 
-  // Configure your compilers
+  contracts_build_directory: path.join(__dirname, './voteit-react/src/contracts'),
+
   compilers: {
     solc: {
       optimizer: {
         enabled: false,
         runs: 200
       },
+
     }
   }
 }
