@@ -40,7 +40,21 @@ class App extends Component {
             candidates: [],
             loading: true
         }
+
+        this.voteCandidate = this.voteCandidate.bind(this)
     }
+
+	voteCandidate(candidateId, numVote) {
+		if (!(1 <= candidateId && candidateId <= this.state.num_candidate)) {
+			return
+		}
+		this.setState({ loading: true })
+		this.state.voting.methods.voteCandidate(candidateId, numVote)
+			.send({ from: this.state.account, value: parseInt(numVote) * this.votePrice })
+			.once('receipt', (receipt) => {
+				this.setState({ loading: false })
+			})
+	}
 
     render() {
         return (
